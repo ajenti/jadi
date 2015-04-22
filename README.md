@@ -1,2 +1,2 @@
-# jadi
-A minimalistic DI container
+# Jadi
+Minimalistic IoC for Python
