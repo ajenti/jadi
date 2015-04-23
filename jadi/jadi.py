@@ -26,12 +26,15 @@ class Context(object):
             self.service_instances[fqdn] = cls(self)
         return self.service_instances[fqdn]
 
+    def get_component(self, cls):
+        fqdn = get_fqdn(cls)
+        if fqdn not in self.component_instances:
+            self.component_instances[fqdn] = cls(self)
+        return self.component_instances[fqdn]
+
     def get_components(self, cls):
         for comp in cls.implementations:
-            fqdn = get_fqdn(comp)
-            if fqdn not in self.component_instances:
-                self.component_instances[fqdn] = comp(self)
-            yield self.component_instances[fqdn]
+            yield self.get_component(comp)
 
 
 def service(cls):
@@ -155,6 +158,11 @@ def component(iface):
             )
         )
         iface.implementations.append(cls)
+
+        def get(cls, context):
+            return context.get_component(cls)
+        cls.get = get.__get__(cls)
+
         return cls
 
     return decorator

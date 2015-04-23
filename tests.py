@@ -63,6 +63,7 @@ def component_test():
     assert isinstance(all[1], TestComponent2)
     any = TestInterface.any(ctx)
     assert isinstance(any, TestComponent)
+    assert isinstance(TestComponent.get(ctx), TestComponent)
 
 
 @raises(NoImplementationError)
