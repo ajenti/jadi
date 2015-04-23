@@ -10,6 +10,8 @@ import subprocess
 from jadi import service, component, interface, Context
 
 
+# @services are singletons within their Context
+
 @service
 class FooService(object):
     def __init__(self, context):
@@ -24,6 +26,8 @@ class BarManager(object):
     def __init__(self, context):
         pass
 
+
+# @components implement @interfaces
 
 @component(BarManager)
 class DebianBarManager(BarManager):
@@ -51,14 +55,18 @@ class RHELBarManager(BarManager):
         subprocess.call(['yum', 'install', 'bar'])
 
 
-
+# Context tracks instantiated @services and @components
 ctx = Context()
 
 assert FooService.get(ctx) == FooService.get(ctx)
 
+# .all() returns instance of each implementation
 assert len(BarManager.all(ctx)) == 2
+
+# .classes() returns class of each implementation
 assert len(BarManager.classes(ctx)) == 2
 
+# .any() returns first available implementation
 assert isinstance(BarManager.any(ctx), BarManager)
 
 foo = FooService.get(ctx)
