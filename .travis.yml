@@ -5,4 +5,5 @@ python:
     - 3.4
 notifications:
   slack: ajenti:ANVVc21AEbnRLYAWBZlhzAtW
+before_install: pip install coverage
 script: nosetests --with-coverage --cover-package=jadi
