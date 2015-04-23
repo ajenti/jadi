@@ -4,7 +4,7 @@
 
 Minimalistic IoC for Python
 
-```
+```python
 import os
 import subprocess
 from jadi import service, component, interface, Context
@@ -59,7 +59,7 @@ assert FooService.get(ctx) == FooService.get(ctx)
 assert len(BarManager.all(ctx)) == 2
 assert len(BarManager.classes(ctx)) == 2
 
-asser isinstance(BarManager.any(ctx), BarManager)
+assert isinstance(BarManager.any(ctx), BarManager)
 
 foo = FooService.get(ctx)
 foo.do_foo()
