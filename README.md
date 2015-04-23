@@ -31,7 +31,7 @@ class DebianBarManager(BarManager):
         pass
 
     @classmethod
-    def __verify__(self):
+    def __verify__(cls):
         return os.path.exists('/etc/debian_version')
 
     def do_bar(self):
@@ -44,7 +44,7 @@ class RHELBarManager(BarManager):
         pass
 
     @classmethod
-    def __verify__(self):
+    def __verify__(cls):
         return os.path.exists('/etc/redhat-release')
 
     def do_bar(self):
