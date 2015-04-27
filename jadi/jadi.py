@@ -146,7 +146,7 @@ def component(iface):
         # Run custom verificator if any
         if hasattr(cls, '__verify__'):
             if not cls.__verify__():
-                return cls
+                return None
 
         if not hasattr(iface, 'implementations'):
             log.error('%s is not an @interface', iface)
