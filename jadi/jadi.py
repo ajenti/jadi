@@ -32,9 +32,16 @@ class Context(object):
             self.component_instances[fqdn] = cls(self)
         return self.component_instances[fqdn]
 
-    def get_components(self, cls):
+    def get_components(self, cls, ignore_exceptions=False):
         for comp in cls.implementations:
-            yield self.get_component(comp)
+            try:
+                instance = self.get_component(comp)
+                yield instance
+            except Exception as e:
+                if ignore_exceptions:
+                    log.error('Could not instantiate %s: %s', cls, e)
+                else:
+                    raise
 
 
 def service(cls):
@@ -111,8 +118,8 @@ def interface(cls):
     cls.implementations = []
 
     # Inject methods
-    def _all(cls, context):
-        return list(context.get_components(cls))
+    def _all(cls, context, ignore_exceptions=False):
+        return list(context.get_components(cls, ignore_exceptions=ignore_exceptions))
     cls.all = _all.__get__(cls)
 
     def _any(cls, context):

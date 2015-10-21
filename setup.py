@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 from distutils.core import setup
-from setuptools import find_packages
 
 
 setup(
     name='jadi',
-    version='1.0.2',
+    version='1.0.3',
     install_requires=[],
     description='Minimalistic IoC for Python',
     author='Eugeny Pankov',
