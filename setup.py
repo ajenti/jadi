@@ -11,4 +11,5 @@ setup(
     author_email='e@ajenti.org',
     url='https://github.com/ajenti/jadi',
     packages=['jadi'],
+    license='LGPL-3.0',
 )
